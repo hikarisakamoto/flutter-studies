@@ -26,34 +26,56 @@ class DicePage extends StatefulWidget {
 class _DicePageState extends State<DicePage> {
   int leftDiceNumber = 1;
   int rightDiceNumber = 1;
+  int total = 0;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                setState(() {
-                  leftDiceNumber = Random().nextInt(6) + 1;
-                });
-              },
-              child: Image.asset('images/dice$leftDiceNumber.png'),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      rollDice();
+                    });
+                  },
+                  child: Image.asset('images/dice$leftDiceNumber.png'),
+                ),
+              ),
+              Expanded(
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      rollDice();
+                    });
+                  },
+                  child: Image.asset('images/dice$rightDiceNumber.png'),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            'Total: $total',
+            style: TextStyle(
+              fontSize: 35,
+              color: Colors.white,
             ),
           ),
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                setState(() {
-                  rightDiceNumber = Random().nextInt(6) + 1;
-                });
-              },
-              child: Image.asset('images/dice$rightDiceNumber.png'),
-            ),
-          )
         ],
       ),
     );
+  }
+
+  void rollDice() {
+    leftDiceNumber = Random().nextInt(6) + 1;
+    rightDiceNumber = Random().nextInt(6) + 1;
+    total = leftDiceNumber + rightDiceNumber;
   }
 }
