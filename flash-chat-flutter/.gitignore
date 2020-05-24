@@ -68,3 +68,9 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!/android/app/google-services.json
+gen/
+ios/Runner.xcworkspace/xcshareddata/
+!/ios/Runner/GoogleService-Info.plist
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
