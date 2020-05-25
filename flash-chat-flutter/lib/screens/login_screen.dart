@@ -1,23 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/components/rounded_button.dart';
-import 'package:flash_chat/screens/chat_screen.dart';
+import 'package:flash_chat/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-import '../constants.dart';
+import 'chat_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String name = 'login_screen';
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String password;
-  String email;
-  final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: kLogoTag,
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               SizedBox(
@@ -52,15 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 8.0,
               ),
-              Center(
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  onChanged: (value) {
-                    password = value;
-                  },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password'),
-                ),
+              TextField(
+                obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  password = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(hintText: 'Enter your password'),
               ),
               SizedBox(
                 height: 24.0,
@@ -78,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, ChatScreen.name);
                     }
 
-                    showSpinner = false;
+                    setState(() {
+                      showSpinner = false;
+                    });
                   } catch (e) {
                     print(e);
                   }
